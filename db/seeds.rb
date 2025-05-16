@@ -7,27 +7,26 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-require 'open-uri'
-puts "Cleaning the DB...."
+require "open-uri"
+require "json"
+
+puts "Cleaning up database..."
 Movie.destroy_all
-# List.destroy_all
+puts "Database cleaned"
 
-# the Le Wagon copy of the API
-puts "Creating movies.... \n"
-(1..5).to_a.each do |num|
-  url = "http://tmdb.lewagon.com/movie/top_rated?page=#{num}"
-  response = JSON.parse(URI.open(url).read)
-
-  response['results'].each do |movie_hash|
-    puts "...creating the movie #{movie_hash['title']}..."
-    puts
-    # create an instance with the hash
-    Movie.create!(
-      poster_url: "https://image.tmdb.org/t/p/w500" + movie_hash['poster_path'],
-      rating: movie_hash['vote_average'],
-      title: movie_hash['title'],
-      overview: movie_hash['overview']
+url = "http://tmdb.lewagon.com/movie/top_rated"
+10.times do |i|
+  puts "Importing movies from page #{i + 1}"
+  movies = JSON.parse(URI.open("#{url}?page=#{i + 1}").read)["results"]
+  movies.each do |movie|
+    puts "Creating #{movie["title"]}"
+    base_poster_url = "https://image.tmdb.org/t/p/original"
+    Movie.create(
+      title: movie["title"],
+      overview: movie["overview"],
+      poster_url: "#{base_poster_url}#{movie["backdrop_path"]}",
+      rating: movie["vote_average"]
     )
   end
 end
-puts "... created #{Movie.count} movies."
+puts "Movies created"
