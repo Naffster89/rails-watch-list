@@ -81,3 +81,4 @@ gem "logger", "~> 1.6"
 gem "base64", "~> 0.2.0"
 gem "bigdecimal", "~> 3.1"
 gem "mutex_m", "~> 0.2.0"
+gem 'uglifier', '>= 1.3.0'
