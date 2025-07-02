@@ -1,15 +1,90 @@
-// .btn-flat {
-//   color: white;
-//   padding: 8px 24px;
-//   border-radius: 4px;
-//   background: #1EDD88;
-//   transition: background 0.3s ease;
-// }
+.btn-flat {
+  color: white;
+  padding: 12px 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #1EDD88 0%, #15c076 100%);
+  transition: all 0.3s ease;
+  border: none;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 15px rgba(30, 221, 136, 0.3);
+  
+  &:hover {
+    background: linear-gradient(135deg, #15c076 0%, #1EDD88 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(30, 221, 136, 0.4);
+    color: white;
+    text-decoration: none;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
 
-// .btn-cancel {
-//   color: white;
-//   padding: 8px 24px;
-//   border-radius: 4px;
-//   background: #6a757e;
-//   transition: background 0.3s ease;
-// }
+.btn-cancel {
+  color: white;
+  padding: 12px 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6a757e 0%, #5a6268 100%);
+  transition: all 0.3s ease;
+  border: none;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 15px rgba(106, 117, 126, 0.3);
+  
+  &:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #6a757e 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(106, 117, 126, 0.4);
+    color: white;
+    text-decoration: none;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-outline-secondary {
+  color: #6c757d;
+  border: 2px solid #6c757d;
+  background: transparent;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: #6c757d;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+  
+  &:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+  }
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+  
+  &:hover {
+    background: linear-gradient(135deg, #c82333 0%, #dc3545 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+  }
+}

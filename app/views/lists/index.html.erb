@@ -1,23 +1,81 @@
-<div class="cover mb-4 d-flex align-items-center justify-content-center">
-  <div class="text-center text-white">
+<div class="cover">
+  <div class="text-center">
     <h1>Save any kind of movies</h1>
-    <h3 class="typed-js" data-controller="typed-js"></h3>
+    <h3>Classic, Horror, Comedy, Action, Drama, etc.</h3>
   </div>
 </div>
-<div class="container py-5">
-  <div class="d-flex align-items-center justify-content-between mb-3">
-    <h3 class="mb-0">My Lists</h3>
-    <%= link_to "Create a movie list", new_list_path, class: "btn btn-flat" %>
+
+<div class="container mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="search-section mb-4">
+        <div class="input-group">
+          <input type="text" class="form-control" id="searchInput" placeholder="Search your lists..." aria-label="Search lists">
+          <button class="btn btn-outline-secondary" type="button" id="searchBtn">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="row">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">My Lists</h2>
+    <%= link_to new_list_path, class: "btn btn-flat" do %>
+      <i class="fas fa-plus me-2"></i>Create a new list
+    <% end %>
+  </div>
+
+  <div class="row" id="listsContainer">
     <% @lists.each do |list| %>
-      <div class="co-12 col-sm-6 col-md-4 mb-3">
-        <%= link_to list_path(list), class:"text-decoration-none" do %>
-          <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= asset_path('list_background.jpg') %>)">
-            <%= list.name %>
+      <div class="col-12 col-sm-6 col-lg-4 mb-4 list-item" data-list-name="<%= list.name.downcase %>">
+        <%= link_to list_path(list), class: "text-decoration-none card-link" do %>
+          <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= asset_path('list_background.jpg') %>)">
+            <span class="text-white"><%= list.name %></span>
+          </div>
+          <div class="mt-2 d-flex justify-content-between align-items-center">
+            <small class="text-muted"><%= pluralize(list.movies.size, "movie") %></small>
+            <small class="text-muted"><%= pluralize(list.reviews.size, "review") %></small>
           </div>
         <% end %>
       </div>
     <% end %>
   </div>
+
+  <% if @lists.empty? %>
+    <div class="text-center py-5">
+      <div class="empty-state">
+        <i class="fas fa-film fa-3x text-muted mb-3"></i>
+        <h3 class="text-muted">No lists yet!</h3>
+        <p class="text-muted mb-4">Create your first movie list to get started.</p>
+        <%= link_to new_list_path, class: "btn btn-flat" do %>
+          <i class="fas fa-plus me-2"></i>Create Your First List
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const listItems = document.querySelectorAll('.list-item');
+
+  function filterLists() {
+    const searchTerm = searchInput.value.toLowerCase();
+    
+    listItems.forEach(item => {
+      const listName = item.getAttribute('data-list-name');
+      if (listName.includes(searchTerm)) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+  searchInput.addEventListener('input', filterLists);
+  searchBtn.addEventListener('click', filterLists);
+});
+</script>
